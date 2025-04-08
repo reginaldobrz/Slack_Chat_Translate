@@ -1,3 +1,235 @@
 [
-  
+  {
+    "origem": "slack",
+    "original": "Hi , how are you?",
+    "translated": "Olá, como você está?"
+  },
+  {
+    "origem": "usuario",
+    "original": "estou bem e você?",
+    "translated": "I'm good, and you?",
+    "timestamp": "2025-04-08 11:05:51 -0300"
+  },
+  {
+    "origem": "slack",
+    "original": "fine",
+    "translated": "bem"
+  },
+  {
+    "origem": "usuario",
+    "original": "como posso lhe ajudar?",
+    "translated": "How can I help you?",
+    "timestamp": "2025-04-08 11:18:12 -0300"
+  },
+  {
+    "origem": "slack",
+    "original": "I have some issues in my aplication and i need some help to solve them. are you have any experience with ruby",
+    "translated": "Eu tenho alguns problemas na minha aplicação e preciso de ajuda para resolvê-los. Você tem alguma experiência com Ruby?"
+  },
+  {
+    "origem": "slack",
+    "original": "can you help me with this?",
+    "translated": "[Erro na tradução]"
+  },
+  {
+    "origem": "slack",
+    "original": "can you help me with this?",
+    "translated": "[Erro na tradução]"
+  },
+  {
+    "origem": "usuario",
+    "original": "testando aplicação em portugues",
+    "translated": "testing application in portuguese",
+    "timestamp": "2025-04-08 11:56:49 -0300"
+  },
+  {
+    "origem": "slack",
+    "original": "testin application in english",
+    "translated": "aplicação testin em inglês"
+  },
+  {
+    "origem": "slack",
+    "original": "new msg",
+    "translated": "novo msg"
+  },
+  {
+    "origem": "usuario",
+    "original": "teste",
+    "translated": "test",
+    "timestamp": "2025-04-08 12:10:04 -0300"
+  },
+  {
+    "origem": "usuario",
+    "original": "oi",
+    "translated": "hi",
+    "timestamp": "2025-04-08 12:19:52 -0300"
+  },
+  {
+    "origem": "slack",
+    "original": "oi",
+    "translated": "oi"
+  },
+  {
+    "origem": "usuario",
+    "original": "oi\n",
+    "translated": "hi\n",
+    "timestamp": "2025-04-08 12:22:45 -0300"
+  },
+  {
+    "origem": "slack",
+    "original": "oi",
+    "translated": "oi"
+  },
+  {
+    "origem": "slack",
+    "original": "oi",
+    "translated": "oi"
+  },
+  {
+    "origem": "slack",
+    "original": "oi",
+    "translated": "oi"
+  },
+  {
+    "origem": "slack",
+    "original": "oi",
+    "translated": "oi"
+  },
+  {
+    "origem": "slack",
+    "original": "oi",
+    "translated": "oi"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "yrs",
+    "translated": "yrs"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "usuario",
+    "original": "oi",
+    "translated": "hi",
+    "timestamp": "2025-04-08 13:00:56 -0300"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "te",
+    "translated": "te"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "oi",
+    "translated": "oi"
+  },
+  {
+    "origem": "slack",
+    "original": "test",
+    "translated": "teste"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "test",
+    "translated": "teste"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "teste",
+    "translated": "testo"
+  },
+  {
+    "origem": "slack",
+    "original": "oi",
+    "translated": "oi"
+  },
+  {
+    "origem": "usuario",
+    "original": "oi\n",
+    "translated": "hi\n",
+    "timestamp": "2025-04-08 13:25:14 -0300"
+  }
 ]

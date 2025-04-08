@@ -1,37 +1,38 @@
 require 'net/http'
+require 'uri'
 require 'json'
+require 'dotenv/load'
 
 class TranslationService
+  BASE_URL = ENV['LIBRETRANSLATE_URL'] || 'https://libretranslate.com'
+puts BASE_URL;
   def self.translate_to_english(text)
-    translate(text, 'portuguese', 'english')
+    translate(text, 'pt', 'en')
   end
 
   def self.translate_to_portuguese(text)
-    translate(text, 'english', 'portuguese')
+    translate(text, 'en', 'pt')
   end
 
   def self.translate(text, source_lang, target_lang)
-    uri = URI("https://api.openai.com/v1/chat/completions")
-
+    uri = URI("#{BASE_URL}/translate")
     req = Net::HTTP::Post.new(uri)
-    req['Authorization'] = "Bearer #{ENV['OPENAI_API_KEY']}"
     req['Content-Type'] = 'application/json'
     req.body = {
-      model: "gpt-3.5-turbo",
-      messages: [
-        { role: "system", content: "You are a helpful assistant that only translates #{source_lang} to #{target_lang}." },
-        { role: "user", content: text }
-      ],
-      temperature: 0.2
+      q: text,
+      source: source_lang,
+      target: target_lang,
+      format: "text"
     }.to_json
 
-    res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
+    res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == 'https') do |http|
       http.request(req)
     end
 
     parsed = JSON.parse(res.body)
-    parsed.dig("choices", 0, "message", "content") || "[Erro na tradução]"
+    parsed["translatedText"] || "[Erro na tradução]"
   rescue => e
-    "[Erro na tradução: #{e.message}]"
+    puts "Erro: #{e.message}"
+    "[Erro na tradução]"
   end
 end

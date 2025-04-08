@@ -37,26 +37,43 @@ post "/slack/events" do
     return request_data["challenge"]
   end
 
-  if request_data["event"] && request_data["event"]["type"] == "message"
-    if request_data["event"]["subtype"] == "bot_message"
-      status 200
-      return "ok"
-    end
+  event = request_data["event"]
+  return status 200 unless event
 
-    user_text = request_data["event"]["text"]
-
-    translated = TranslationService.translate_to_portuguese(user_text)
-
-    MessageLogger.log(
-      origem: "slack",
-      original: user_text,
-      translated: translated
-    )
+  # Evita processar mensagens de bots
+  if event["subtype"] == "bot_message"
+    puts "[IGNORADO] Mensagem do próprio bot Slack"
+    return status 200
   end
+
+  # Ignora se não houver texto (ex: arquivo ou emoji)
+  return status 200 unless event["text"]
+
+  user_text = event["text"]
+
+  translated = TranslationService.translate_to_portuguese(user_text)
+
+  MessageLogger.log(
+    origem: "slack",
+    original: user_text,
+    translated: translated
+  )
 
   status 200
   body "ok"
 end
+
+post '/enviar-preview' do
+  request.body.rewind
+  data = JSON.parse(request.body.read)
+  texto = data["texto"]
+
+  translated = TranslationService.translate_to_english(texto)
+
+  { status: 'ok', translated: translated }.to_json
+end
+
+
 
 if defined?(Rack::Protection::HostAuthorization)
   use Rack::Protection::HostAuthorization, allow: ->(host) { true }

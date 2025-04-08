@@ -2,26 +2,24 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Slack Tradutor</title>
+  <title>Slack Translator</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <h1>Slack Tradutor</h1>
+  <h1>Slack Translator</h1>
+
   <form id="mensagem-form">
-    <label for="texto">Digite em português:</label>
-    <textarea id="texto" name="texto" required></textarea>
-    <br>
-    <button type="submit">Enviar</button>
+    <label for="texto">Type in Portuguese:</label>
+    <textarea id="texto" name="texto" required></textarea>    
+    <div class="button-toast-wrapper">
+    <button type="submit" form="mensagem-form">Send</button>
+    <div id="toast" class="toast"></div>
+  </div>
   </form>
+  
+  
 
   <div id="chat-container"></div>
-    <% @messages.each do |msg| %>
-      <div class="mensagem <%= msg['origem'] == 'usuario' ? 'enviada' : 'recebida' %>">
-        <div><%= msg['original'] %></div>
-        <small><%= msg['origem'] == 'usuario' ? "Enviado (em inglês): #{msg['translated']}" : "Traduzido: #{msg['translated']}" %></small>
-      </div>
-    <% end %>
-  </div>
 
   <script src="/app.js"></script>
 </body>
