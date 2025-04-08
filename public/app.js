@@ -1,6 +1,4 @@
 const chatContainer = document.getElementById('chat-container');
-
-// Cria o aviso de nova mensagem (fora do loop)
 const aviso = document.createElement('div');
 aviso.id = 'novo-aviso';
 aviso.innerText = 'Nova mensagem recebida';
@@ -95,7 +93,6 @@ document.getElementById('mensagem-form').addEventListener('submit', async (e) =>
   }
 });
 
-
 function mostrarToast(msg = "Nova mensagem recebida") {
   const toast = document.getElementById('toast');
   toast.textContent = msg;
@@ -105,8 +102,6 @@ function mostrarToast(msg = "Nova mensagem recebida") {
     toast.style.display = 'none';
   }, 3000);
 }
-
-
 
 setInterval(carregarMensagens, 3000);
 carregarMensagens();

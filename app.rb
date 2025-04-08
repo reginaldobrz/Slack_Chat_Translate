@@ -40,13 +40,11 @@ post "/slack/events" do
   event = request_data["event"]
   return status 200 unless event
 
-  # Evita processar mensagens de bots
   if event["subtype"] == "bot_message"
     puts "[IGNORADO] Mensagem do próprio bot Slack"
     return status 200
   end
 
-  # Ignora se não houver texto (ex: arquivo ou emoji)
   return status 200 unless event["text"]
 
   user_text = event["text"]
@@ -72,8 +70,6 @@ post '/enviar-preview' do
 
   { status: 'ok', translated: translated }.to_json
 end
-
-
 
 if defined?(Rack::Protection::HostAuthorization)
   use Rack::Protection::HostAuthorization, allow: ->(host) { true }

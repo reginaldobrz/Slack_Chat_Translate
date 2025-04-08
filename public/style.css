@@ -52,7 +52,7 @@ body {
   
   .button-toast-wrapper {
     display: flex;
-    flex-direction: row; /* Importante: coloca os itens lado a lado */
+    flex-direction: row;
     align-items: center;
     gap: 12px;
   }
@@ -64,7 +64,7 @@ body {
     border-radius: 6px;
     font-size: 14px;
     white-space: nowrap;
-    display: none; /* Garante que fique escondido */
+    display: none;
 
     animation: fadeInOut 5s ease-in-out;
   }
@@ -74,5 +74,4 @@ body {
     10% { opacity: 1; transform: translateY(0); }
     90% { opacity: 1; transform: translateY(0); }
     100% { opacity: 0; transform: translateY(10px); }
-  }
-  
+  }  
