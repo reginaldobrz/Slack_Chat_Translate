@@ -8,3 +8,13 @@ gem "json"
 gem "net-http"
 gem "rack-protection"
 gem "openai"
+gem 'rack-test'
+
+# HTTP client
+gem "net-http"
+
+# Testes
+group :test do
+    gem "rspec"
+    gem "webmock"
+end
