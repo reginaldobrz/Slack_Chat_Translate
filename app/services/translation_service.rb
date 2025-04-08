@@ -5,7 +5,7 @@ require 'dotenv/load'
 
 class TranslationService
   BASE_URL = ENV['LIBRETRANSLATE_URL'] || 'https://libretranslate.com'
-puts BASE_URL;
+
   def self.translate_to_english(text)
     translate(text, 'pt', 'en')
   end
