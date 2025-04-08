@@ -30,9 +30,9 @@ puts BASE_URL;
     end
 
     parsed = JSON.parse(res.body)
-    parsed["translatedText"] || "[Erro na tradução]"
+    parsed["translatedText"] || "[Translate Error]"
   rescue => e
-    puts "Erro: #{e.message}"
-    "[Erro na tradução]"
+    puts "Error: #{e.message}"
+    "[Translate Error]"
   end
 end

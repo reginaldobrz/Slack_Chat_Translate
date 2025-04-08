@@ -1,52 +1,52 @@
 const chatContainer = document.getElementById('chat-container');
-const aviso = document.createElement('div');
-aviso.id = 'novo-aviso';
-aviso.innerText = 'Nova mensagem recebida';
-aviso.style.display = 'none';
-aviso.style.cursor = 'pointer';
-aviso.style.textAlign = 'center';
-aviso.style.background = '#fffae6';
-aviso.style.padding = '10px';
-aviso.style.border = '1px solid #e0c97f';
-aviso.style.margin = '10px 0';
-aviso.style.borderRadius = '6px';
-chatContainer.after(aviso);
+const advisor = document.createElement('div');
+advisor.id = 'new-advisor';
+advisor.innerText = 'New Message recieved';
+advisor.style.display = 'none';
+advisor.style.cursor = 'pointer';
+advisor.style.textAlign = 'center';
+advisor.style.background = '#fffae6';
+advisor.style.padding = '10px';
+advisor.style.border = '1px solid #e0c97f';
+advisor.style.margin = '10px 0';
+advisor.style.borderRadius = '6px';
+chatContainer.after(advisor);
 
-aviso.addEventListener('click', () => {
+advisor.addEventListener('click', () => {
   chatContainer.scrollTop = chatContainer.scrollHeight;
-  aviso.style.display = 'none';
+  advisor.style.display = 'none';
 });
 
-let ultimaQuantidade = 0;
+let lastQuantity = 0;
 
-async function carregarMensagens() {
+async function loadMessages() {
   try {
-    const res = await fetch('/mensagens_json');
-    const mensagens = await res.json();
+    const res = await fetch('/messages_json');
+    const messages = await res.json();
 
-    if (mensagens.length === ultimaQuantidade) return;
-    const estavaNoFinal = chatContainer.scrollTop + chatContainer.clientHeight >= chatContainer.scrollHeight - 20;
-    ultimaQuantidade = mensagens.length;
+    if (messages.length === lastQuantity) return;
+    const wasAtTheEnd = chatContainer.scrollTop + chatContainer.clientHeight >= chatContainer.scrollHeight - 20;
+    lastQuantity = messages.length;
 
     chatContainer.innerHTML = '';
 
-    mensagens.forEach(msg => {
+    messages.forEach(msg => {
       const el = document.createElement('div');
-      el.classList.add('mensagem');
-      el.classList.add(msg.origem === 'usuario' ? 'enviada' : 'recebida');
+      el.classList.add('message');
+      el.classList.add(msg.origem === 'user' ? 'sent' : 'recieved');
 
       el.innerHTML = `
         <div>${msg.original}</div>
-        <small>${msg.origem === 'usuario' ? `Sent (in English): ${msg.translated}` : `Translated: ${msg.translated}`}</small>
+        <small>${msg.origem === 'user' ? `Sent (in English): ${msg.translated}` : `Translated: ${msg.translated}`}</small>
       `;
       chatContainer.appendChild(el);
     });
 
-    if (estavaNoFinal) {
+    if (wasAtTheEnd) {
       chatContainer.scrollTop = chatContainer.scrollHeight;
-      aviso.style.display = 'none';
+      advisor.style.display = 'none';
     } else {
-      mostrarToast("Nova mensagem recebida");
+      showToast("New Message Recieved");
     }
 
   } catch (err) {
@@ -54,35 +54,35 @@ async function carregarMensagens() {
   }
 }
 
-document.getElementById('mensagem-form').addEventListener('submit', async (e) => {
+document.getElementById('message-form').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const texto = document.getElementById('texto').value;
+  const text = document.getElementById('text').value;
 
   try {
-    const previewRes = await fetch('/enviar-preview', {
+    const previewRes = await fetch('/send-preview', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ texto })
+      body: JSON.stringify({ text })
     });
 
     const previewResult = await previewRes.json();
 
     if (previewResult.status === 'ok') {
-      const confirmacao = confirm(`Translation:\n\n${previewResult.translated}\n\nWhould you like to send this message?`);
-      if (!confirmacao) return;
+      const confirmation = confirm(`Translation:\n\n${previewResult.translated}\n\nWhould you like to send this message?`);
+      if (!confirmation) return;
 
-      const envioRes = await fetch('/enviar', {
+      const sendRes = await fetch('/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ texto })
+        body: JSON.stringify({ text })
       });
 
-      const envioResult = await envioRes.json();
-      if (envioResult.status === 'ok') {
-        document.getElementById('texto').value = '';
-        await carregarMensagens();
+      const sendResult = await sendRes.json();
+      if (sendResult.status === 'ok') {
+        document.getElementById('text').value = '';
+        await loadMessages();
       } else {
-        alert("Error sending message: " + (envioResult.error || "Unmapped Error"));
+        alert("Error sending message: " + (sendResult.error || "Unmapped Error"));
       }
 
     } else {
@@ -93,7 +93,7 @@ document.getElementById('mensagem-form').addEventListener('submit', async (e) =>
   }
 });
 
-function mostrarToast(msg = "Nova mensagem recebida") {
+function showToast(msg = "New Message Recieved") {
   const toast = document.getElementById('toast');
   toast.textContent = msg;
   toast.style.display = 'block';
@@ -103,5 +103,5 @@ function mostrarToast(msg = "Nova mensagem recebida") {
   }, 3000);
 }
 
-setInterval(carregarMensagens, 3000);
-carregarMensagens();
+setInterval(loadMessages, 3000);
+loadMessages();

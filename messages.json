@@ -1,2 +1,13 @@
 [
+  {
+    "origem": "user",
+    "original": "oi",
+    "translated": "hi",
+    "timestamp": "2025-04-08 14:36:29 -0300"
+  },
+  {
+    "origem": "slack",
+    "original": "hi",
+    "translated": "olá"
+  }
 ]

@@ -9,13 +9,13 @@ class MessagesController
     ERB.new(File.read('app/views/index.erb')).result(binding)
   end
 
-  def self.send_message(texto)
-    translated = TranslationService.translate_to_english(texto)
+  def self.send_message(text)
+    translated = TranslationService.translate_to_english(text)
     SlackService.send_message(translated)
 
     MessageLogger.log({
-      origem: 'usuario',
-      original: texto,
+      origem: 'user',
+      original: text,
       translated: translated,
       timestamp: Time.now.to_s
     })

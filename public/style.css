@@ -16,23 +16,23 @@ body {
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
   }
   
-  .mensagem {
+  .message {
     margin-bottom: 15px;
     padding: 10px;
     border-radius: 6px;
   }
   
-  .enviada {
+  .sent {
     background-color: #dcf8c6;
     text-align: right;
   }
   
-  .recebida {
+  .recieved {
     background-color: #ffffff;
     text-align: left;
   }
   
-  .mensagem small {
+  .message small {
     display: block;
     color: #666;
     font-size: 12px;
@@ -46,7 +46,7 @@ body {
     resize: none;
   }
   
-  #mensagem-form {
+  #message-form {
     margin-bottom: 10px;
   }
   

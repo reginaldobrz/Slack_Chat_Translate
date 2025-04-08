@@ -8,7 +8,7 @@ class MessageLogger
     content = File.read(FILE_PATH)
     content.empty? ? [] : JSON.parse(content)
   rescue => e
-    puts "Erro ao carregar mensagens: \#{e.message}"
+    puts "Error to load messages: \#{e.message}"
     []
   end
 

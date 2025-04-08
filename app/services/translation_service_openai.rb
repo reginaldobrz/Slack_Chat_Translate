@@ -30,8 +30,8 @@ class TranslationServiceOpenAi
     end
 
     parsed = JSON.parse(res.body)
-    parsed.dig("choices", 0, "message", "content") || "[Erro na tradução]"
+    parsed.dig("choices", 0, "message", "content") || "[Translate Error]"
   rescue => e
-    "[Erro na tradução: #{e.message}]"
+    "[Translate Error: #{e.message}]"
   end
 end

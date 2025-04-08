@@ -19,13 +19,13 @@ get '/' do
   MessagesController.list_messages
 end
 
-post '/enviar' do
+post '/send' do
   request.body.rewind
   data = JSON.parse(request.body.read)
-  MessagesController.send_message(data["texto"])
+  MessagesController.send_message(data["text"])
 end
 
-get '/mensagens_json' do
+get '/messages_json' do
   content_type :json
   MessagesController.all_messages.to_json
 end
@@ -61,12 +61,12 @@ post "/slack/events" do
   body "ok"
 end
 
-post '/enviar-preview' do
+post '/send-preview' do
   request.body.rewind
   data = JSON.parse(request.body.read)
-  texto = data["texto"]
+  text = data["text"]
 
-  translated = TranslationService.translate_to_english(texto)
+  translated = TranslationService.translate_to_english(text)
 
   { status: 'ok', translated: translated }.to_json
 end
