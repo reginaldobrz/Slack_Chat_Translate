@@ -123,6 +123,7 @@ Create a new app to act as your chat bot. In the settings, go to the "Event Subs
 ```bash
 https://YOUR-NGROK-URL/slack/events
 ```
+OBS: Remember to add yout ngrok authtoken on ngrok.yml
 
 That’s it — your chat bot is now ready to listen to events from your application.
 
