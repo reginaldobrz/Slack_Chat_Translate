@@ -1,124 +1,158 @@
+
 # Slack Chat Translator (Ruby + Sinatra)
 
-Este projeto é uma aplicação web simples em Ruby (sem Rails), que permite traduzir mensagens entre português e inglês em tempo real em um canal do Slack, com interface web e integração com um LLM (como LibreTranslate ou OpenAI).
+This project is a simple web application built in Ruby (without Rails) that enables real-time translation between Portuguese and English within a Slack channel, with a web interface and integration with an LLM (like LibreTranslate or OpenAI).
 
 ---
 
-## ✨ Funcionalidades
+## ✨ Features
 
-- Interface estilo chat (estática, sem React)
-- Tradução automática entre 🇧🇷 Português ⇄ 🇺🇸 Inglês
-- Integração com Slack (envio e recebimento de mensagens)
-- Visualização web atualizada com polling a cada 3 segundos
-- Confirmação de tradução antes de envio
-- Exposição via Cloudflare Tunnel
+- Chat-style interface (static, no React)
+- Automatic translation between 🇧🇷 Portuguese ⇄ 🇺🇸 English
+- Slack integration (send and receive messages)
+- Web view updated via polling every 3 seconds
+- Translation confirmation before sending
+- Public access via Cloudflare Tunnel
 
 ---
 
-## 📦 Pré-requisitos
+## 📦 Prerequisites
 
-- Ruby `>= 3.0` (testado em 3.4.2)
+- Ruby `>= 3.0` (tested on 3.4.2)
 - Bundler (`gem install bundler`)
-- Conta no [Slack API](https://api.slack.com/)
-- Chave da API de tradução:
-  - [LibreTranslate](https://libretranslate.com/) (grátis)
-  - ou [OpenAI API](https://platform.openai.com/) (pago)
+- A [Slack API](https://api.slack.com/) account
+- Translation API key:
+  - [LibreTranslate](https://libretranslate.com/) (free)
+  - or [OpenAI API](https://platform.openai.com/) (paid)
 
 ---
 
-## 🚀 Instalação
+## 🚀 Installation
 
 ```bash
-# Clone o repositório
-git clone https://github.com/seu-usuario/slack-chat-translator.git
+# Clone the repository
+git clone https://github.com/your-username/slack-chat-translator.git
 cd slack-chat-translator
 
-# Instale as dependências
+# Install dependencies
 bundle install
 
-# Crie o arquivo .env com suas chaves
+# Create the .env file with your keys
 cp .env.example .env
-
 ```
+
 ---
 
-## 🐳 Rodando o LibreTranslate localmente (Docker)
+## 🐳 Running LibreTranslate locally (Docker)
 
-Você pode executar o seu próprio servidor de tradução usando o LibreTranslate localmente com Docker:
+You can run your own translation server locally using LibreTranslate with Docker:
 
-### 1. Suba o container:
+### 1. Start the container:
 
 ```bash
 docker run -d -p 5000:5000 libretranslate/libretranslate
 ```
 
-Configure a URL no .env:
+Set the URL in your .env file:
 
 ```bash
 LIBRETRANSLATE_URL=http://localhost:5000/translate
 ```
-Verifique se está funcionando:
-Acesse no navegador:
+
+Verify it's working by visiting in your browser:
 
 ```bash
 http://localhost:5000
 ```
-Você verá a interface da API REST do LibreTranslate.
+
+You should see the LibreTranslate REST API interface.
 
 ---
 
-## ▶️ Executando a aplicação
+## ▶️ Running the application
+
 ```bash
 ruby app.rb
 ```
-Acesse: http://localhost:4567
+
+Access the app at: http://localhost:4567
 
 ---
 
-## 🌐 Tornar público com Cloudflare Tunnel
+## 🌐 [Option 1] Make it public with Cloudflare Tunnel
 
 ```bash
 cloudflared tunnel --url http://localhost:4567
 ```
 
-O terminal mostrará um link público do tipo:
+Your terminal will display a public link like:
 
 ```bash
-https://exemplo-aleatorio.trycloudflare.com
+https://random-example.trycloudflare.com
 ```
 
-Use este link para configurar o Slack Events URL:
+Use this link to configure the Slack Events URL:
 
 ```bash
-https://seu-tunel.trycloudflare.com/slack/events
+https://your-tunnel.trycloudflare.com/slack/events
 ```
 
 ---
 
-## 🛠️ Desenvolvimento
-- As mensagens ficam salvas no arquivo messages.json
+## 🌐 [Option 2] Make it public with Ngrok Tunnel
 
-- A UI é construída com HTML+ERB+CSS puro
+With the ngrok agent installed, run the following command:
 
-- Polling a cada 3s carrega mensagens novas
+```bash
+npx ngrok start --all --config ./ngrok.yml
+```
 
-- O botão "Send" exibe uma tradução antes de enviar
+Your terminal will show two public forwarding links:  
+One for port `:5000` (LibreTranslate) and another for port `:4567` (Sinatra app):
 
-- Toast de nova mensagem aparece se o usuário não estiver no final do chat
+- Add the URL provided for port `:5000` to your `.env` file under the key `LIBRETRANSLATE_URL`
 
+- The URL for port `:4567` will be used to configure your Slack app. Go to:
+
+```bash
+https://api.slack.com/apps
+```
+
+Create a new app to act as your chat bot. In the settings, go to the "Event Subscriptions" tab, enable the feature, and in the "Request URL" field, paste the ngrok URL for port `:4567` followed by `/slack/events`. Save it.
+
+```bash
+https://YOUR-NGROK-URL/slack/events
+```
+
+That’s it — your chat bot is now ready to listen to events from your application.
 
 ---
 
-## 🧪 Testando
-- Envie uma mensagem na interface
+## 🛠️ Development Notes
 
-- Verifique se foi enviada para o Slack (traduzida)
+- Messages are stored in `messages.json`
 
-- Responda no Slack (em inglês) e veja ela aparecer na interface (traduzida para português)
+- The UI is built using plain HTML + ERB + CSS
+
+- New messages are fetched every 3 seconds via polling
+
+- The "Send" button shows a translation before submission
+
+- A toast notification appears if a new message arrives and the user isn’t at the bottom of the chat
 
 ---
 
-## 📂 Estrutura
+## 🧪 Testing
+
+- Send a message from the web interface
+
+- Check if it was sent to Slack (translated)
+
+- Reply in Slack (in English) and watch it appear in the interface (translated into Portuguese)
+
+---
+
+## 📂 Project Structure
 
 ```bash
 app/
