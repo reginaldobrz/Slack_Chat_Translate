@@ -1,5 +1,5 @@
 version: "2"
-authtoken: 2hnQeol5Txl9KkXtUIiKiSt1q7z_65eLBeTnRV7nCNTap1joL
+authtoken: your_ngrok_authtoken_here
 
 tunnels:
   sinatra_app:
