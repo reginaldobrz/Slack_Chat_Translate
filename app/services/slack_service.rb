@@ -3,14 +3,15 @@ require 'uri'
 require 'json'
 
 class SlackService
-  def self.send_message(text)
-    url = ENV['SLACK_WEBHOOK_URL']
-    raise "SLACK_WEBHOOK_URL not defined or null" if url.nil? || url.strip.empty?
+  def initialize(webhook_url = ENV['SLACK_WEBHOOK_URL'])
+    raise ArgumentError, "Webhook URL is required" if webhook_url.nil? || webhook_url.strip.empty?
 
-    uri = URI.parse(url)
-    header = { 'Content-Type': 'application/json' }
+    @uri = URI.parse(webhook_url)
+    @header = { 'Content-Type' => 'application/json' }
+  end
+
+  def send_message(text)
     body = { text: text }.to_json
-
-    Net::HTTP.post(uri, body, header)
+    Net::HTTP.post(@uri, body, @header)
   end
 end

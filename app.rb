@@ -49,9 +49,12 @@ post "/slack/events" do
 
   user_text = event["text"]
 
-  translated = TranslationService.translate_to_portuguese(user_text)
+  translator = TranslationService.new
+  translated = translator.translate_to_portuguese(user_text)
 
-  MessageLogger.log(
+  logger = MessageLogger.new
+
+  logger.log(
     origem: "slack",
     original: user_text,
     translated: translated
@@ -66,7 +69,8 @@ post '/send-preview' do
   data = JSON.parse(request.body.read)
   text = data["text"]
 
-  translated = TranslationService.translate_to_english(text)
+  translator = TranslationService.new
+  translated = translator.translate_to_english(text)
 
   { status: 'ok', translated: translated }.to_json
 end

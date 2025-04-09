@@ -1,20 +1,23 @@
 require 'json'
 
 class MessageLogger
-  FILE_PATH = 'messages.json'
+  def initialize(file_path = 'messages.json')
+    @file_path = file_path
+  end
 
-  def self.load_messages
-    return [] unless File.exist?(FILE_PATH)
-    content = File.read(FILE_PATH)
+  def load_messages
+    return [] unless File.exist?(@file_path)
+
+    content = File.read(@file_path)
     content.empty? ? [] : JSON.parse(content)
   rescue => e
     puts "Error to load messages: \#{e.message}"
     []
   end
 
-  def self.log(data)
+  def log(data)
     messages = load_messages
     messages << data
-    File.write(FILE_PATH, JSON.pretty_generate(messages))
+    File.write(@file_path, JSON.pretty_generate(messages))
   end
 end

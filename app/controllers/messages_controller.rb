@@ -5,25 +5,30 @@ require 'erb'
 
 class MessagesController
   def self.list_messages
-    @messages = MessageLogger.load_messages.reverse
+    logger = MessageLogger.new
+    @messages = logger.load_messages.reverse
     ERB.new(File.read('app/views/index.erb')).result(binding)
   end
 
   def self.send_message(text)
-    translated = TranslationService.translate_to_english(text)
-    SlackService.send_message(translated)
+    translator = TranslationService.new
+    translated = translator.translate_to_english(text)
+    
+    sender = SlackService.new
+    sender.send_message(translated)
 
-    MessageLogger.log({
+    logger = MessageLogger.new
+    logger.log({
       origem: 'user',
-      original: text,
-      translated: translated,
-      timestamp: Time.now.to_s
+        original: text,
+        translated: translated,
+        timestamp: Time.now.to_s
     })
 
     { status: 'ok' }.to_json
   end
 
   def self.all_messages
-    MessageLogger.load_messages
+    MessageLogger.new.load_messages
   end
 end

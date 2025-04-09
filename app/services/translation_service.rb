@@ -1,21 +1,22 @@
 require 'net/http'
 require 'uri'
 require 'json'
-require 'dotenv/load'
 
 class TranslationService
-  BASE_URL = ENV['LIBRETRANSLATE_URL'] || 'https://libretranslate.com'
+  def initialize(base_url = ENV['LIBRETRANSLATE_URL'] || 'https://libretranslate.com')
+    @base_url = base_url
+  end
 
-  def self.translate_to_english(text)
+  def translate_to_english(text)
     translate(text, 'pt', 'en')
   end
 
-  def self.translate_to_portuguese(text)
+  def translate_to_portuguese(text)
     translate(text, 'en', 'pt')
   end
 
-  def self.translate(text, source_lang, target_lang)
-    uri = URI("#{BASE_URL}/translate")
+  def translate(text, source_lang, target_lang)
+    uri = URI("#{@base_url}/translate")
     req = Net::HTTP::Post.new(uri)
     req['Content-Type'] = 'application/json'
     req.body = {

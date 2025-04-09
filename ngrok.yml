@@ -1,0 +1,11 @@
+version: "2"
+authtoken: 2hnQeol5Txl9KkXtUIiKiSt1q7z_65eLBeTnRV7nCNTap1joL
+
+tunnels:
+  sinatra_app:
+    proto: http
+    addr: 4567
+
+  libretranslate:
+    proto: http
+    addr: 5000
