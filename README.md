@@ -166,3 +166,5 @@ messages.json
 .env
 Gemfile
 ```
+## 🔍 Coverage Tests
+![image](https://github.com/user-attachments/assets/b6a04869-15c3-4687-b265-5d82f4e750f5)
