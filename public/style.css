@@ -68,6 +68,11 @@ body {
 
     animation: fadeInOut 5s ease-in-out;
   }
+
+  .message strong {
+    color: #2b6cb0;
+    font-size: 14px;
+  }
   
   @keyframes fadeInOut {
     0% { opacity: 0; transform: translateY(10px); }

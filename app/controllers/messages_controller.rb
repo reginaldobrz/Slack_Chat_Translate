@@ -1,5 +1,5 @@
 require_relative '../services/slack_service'
-require_relative '../services/translation_service'
+require_relative '../services/translation_service_openai'
 require_relative '../services/message_logger'
 require 'erb'
 
@@ -11,7 +11,7 @@ class MessagesController
   end
 
   def self.send_message(text)
-    translator = TranslationService.new
+    translator = TranslationServiceOpenAi.new
     translated = translator.translate_to_english(text)
     
     sender = SlackService.new

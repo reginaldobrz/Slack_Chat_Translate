@@ -35,8 +35,13 @@ async function loadMessages() {
       el.classList.add('message');
       el.classList.add(msg.origem === 'user' ? 'sent' : 'recieved');
 
+      const userName = msg.user ? `<strong>${msg.user}</strong><br>` : '';
+      const userNameBot = `<strong>Reginaldo Aguiar Bot</strong><br>`;
+
+
       el.innerHTML = `
-        <div>${msg.original}</div>
+        ${!userName ? userNameBot : userName}
+        <div>Message: ${msg.original}</div>
         <small>${msg.origem === 'user' ? `Sent (in English): ${msg.translated}` : `Translated: ${msg.translated}`}</small>
       `;
       chatContainer.appendChild(el);

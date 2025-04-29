@@ -38,7 +38,6 @@ post "/slack/events" do
   end
 
   event = request_data["event"]
-  return status 200 unless event
 
   if event["subtype"] == "bot_message"
     puts "[IGNORADO] Mensagem do próprio bot Slack"
@@ -47,18 +46,24 @@ post "/slack/events" do
 
   return status 200 unless event["text"]
 
-  user_text = event["text"]
+  if request_data["event"] && request_data["event"]["type"] == "message"
+    user_id = event["user"]
+    serviceSlack = SlackService.new
+    user_name = serviceSlack.fetch_user_name(user_id)
 
-  translator = TranslationService.new
-  translated = translator.translate_to_portuguese(user_text)
+    user_text = event["text"]
+    translator = TranslationServiceOpenAi.new
+    translated = translator.translate_to_portuguese(user_text)
 
-  logger = MessageLogger.new
+    logger = MessageLogger.new
 
-  logger.log(
-    origem: "slack",
-    original: user_text,
-    translated: translated
-  )
+    logger.log(
+      origem: "slack",
+      original: user_text,
+      translated: translated,
+      user: user_name
+    )
+  end
 
   status 200
   body "ok"
@@ -69,7 +74,7 @@ post '/send-preview' do
   data = JSON.parse(request.body.read)
   text = data["text"]
 
-  translator = TranslationService.new
+  translator = TranslationServiceOpenAi.new
   translated = translator.translate_to_english(text)
 
   { status: 'ok', translated: translated }.to_json

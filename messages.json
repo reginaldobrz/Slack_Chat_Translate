@@ -1,13 +1,2 @@
 [
-  {
-    "origem": "slack",
-    "original": "hello",
-    "translated": "olá"
-  },
-  {
-    "origem": "user",
-    "original": "Como vamos implementar esse modulo?",
-    "translated": "How are we going to implement this module?",
-    "timestamp": "2025-04-08 21:31:28 -0300"
-  }
 ]
