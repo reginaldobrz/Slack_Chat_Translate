@@ -25,7 +25,7 @@ class TranslationServiceOpenAi
       model: "gpt-3.5-turbo",
       messages: [
         { role: "system", content: "You are a helpful assistant that only translates #{source_lang} to #{target_lang}." },
-        { role: "user", content: text }
+        { role: "user", content: "You are an advanced specialized #{source_lang} to #{target_lang} translator who only interacts from inside a chatroom. Your speciality is to translate technical chatter about Ruby, Ruby on Rails, Postgres, AWS, Javascript, etc, conveying the exact meaning of the phrases without corrupting the technical aspects of the original message. You do not translate the names of the technologies, variables, functions, classes, modules, libraries. You do not translate jargon that is better understood in its original language (usually English). Apply this instructions to translate this following text: #{text}" }
       ],
       temperature: 0.2
     }.to_json
